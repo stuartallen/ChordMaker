@@ -70,71 +70,83 @@ def findkeyFlats(root,tonic):
         return scale
 
 def findkey(root,tonic):
-    goodkeysharps = True
-    goodkeyflats = True
-    for i in range(len(findkeySharps(root,tonic))):
-        if findkeySharps(root,tonic)[i][0] == findkeySharps(root,tonic)[i-1][0]:
-            goodkeysharps = False
-    for i in range(len(findkeyFlats(root,tonic))):
-        if findkeyFlats(root,tonic)[i][0] == findkeyFlats(root,tonic)[(i-1)][0]:
-            goodkeyflats = False
-    if len(root) == 2:
-        if root[1] == 'b':
-            return findkeyFlats(root,tonic)
-        if root[1] == '#':
-            return findkeySharps(root,tonic)
-    if goodkeyflats == True and goodkeysharps == False:
-        return findkeyFlats(root,tonic)
-    if goodkeysharps == True and goodkeyflats == False:
-        return findkeySharps(root,tonic)
-    if goodkeysharps == True and goodkeyflats == True:
-        return findkeyFlats(root,tonic)
-        return findkeySharps(root,tonic)
+    scaleTypes = ["major","minor"]
+    if tonic.lower() in scaleTypes:
+        if root[0].upper() in notesSharps or root[0].upper() in notesFlats:
+            goodkeysharps = True
+            goodkeyflats = True
+            for i in range(len(findkeySharps(root,tonic))):
+                if findkeySharps(root,tonic)[i][0] == findkeySharps(root,tonic)[i-1][0]:
+                    goodkeysharps = False
+            for i in range(len(findkeyFlats(root,tonic))):
+                if findkeyFlats(root,tonic)[i][0] == findkeyFlats(root,tonic)[(i-1)][0]:
+                    goodkeyflats = False
+            if len(root) == 2:
+                if root[1] == 'b':
+                    return findkeyFlats(root,tonic)
+                elif root[1] == '#':
+                    return findkeySharps(root,tonic)
+                else:
+                    return findkeySharps("C","major")
+            if goodkeyflats == True and goodkeysharps == False:
+                return findkeyFlats(root,tonic)
+            if goodkeysharps == True and goodkeyflats == False:
+                return findkeySharps(root,tonic)
+            if goodkeysharps == True and goodkeyflats == True:
+                return findkeyFlats(root,tonic)
+                return findkeySharps(root,tonic)
+        else:
+            return findkeySharps("C","major")
+    else:
+        return findkeySharps("C","major")
 
 def chord(scale,degree):
-    print("chord %s %s"%(scale,degree))
-    chordNotes = []
-    for note in chordSteps[degree]:
-        if len(note) == 1:
-            note = int(note)
-            tone = scale[note % len(scale)]
-            chordNotes.append(tone)
-        elif note[1] == "#":
-            fix = int(note[0])
-            if len(scale[fix]) == 1:
-                chordNotes.append(scale[fix] + "#")
-            if len(scale[fix]) != 1 and scale[fix][1] == "b":
-                chordNotes.append(scale[fix][0])
-            if len(scale[fix]) != 1 and scale[fix][1] == "#":
-                place = 0
-                for note in notesSharps:
-                    if scale[fix] != note:
-                        place += 1
-                    else:
-                        chordNotes.append(notesSharps[place + 1])
-        elif note[1] == "b":
-            fix = int(note[0])
-            if len(scale[fix]) == 1:
-                chordNotes.append(scale[fix] + "b")
-            if len(scale[fix]) != 1 and scale[fix][1] == "#":
-                chordNotes.append(scale[fix][0])
-            if len(scale[fix]) != 1 and scale[fix][1] == "b":
-                place = 0
-                for note in notesFlats:
-                    if scale[fix] != note:
-                        place += 1
-                    else:
-                        chordNotes.append(notesFlats[((place - 1) + len(notesFlats)) % len(notesFlats)])
-    for count, note in enumerate(chordNotes):
-        if note == "Fb":
-            chordNotes[count] = "E"
-        if note == "Cb":
-            chordNotes[count] = "B"
-        if note == "E#":
-            chordNotes[count] = "F"
-        if note == "B#":
-            chordNotes[count] = "C"
-    return chordNotes
+    if degree in chordSteps.keys():
+        print("chord %s %s"%(scale,degree))
+        chordNotes = []
+        for note in chordSteps[degree]:
+            if len(note) == 1:
+                note = int(note)
+                tone = scale[note % len(scale)]
+                chordNotes.append(tone)
+            elif note[1] == "#":
+                fix = int(note[0])
+                if len(scale[fix]) == 1:
+                    chordNotes.append(scale[fix] + "#")
+                if len(scale[fix]) != 1 and scale[fix][1] == "b":
+                    chordNotes.append(scale[fix][0])
+                if len(scale[fix]) != 1 and scale[fix][1] == "#":
+                    place = 0
+                    for note in notesSharps:
+                        if scale[fix] != note:
+                            place += 1
+                        else:
+                            chordNotes.append(notesSharps[place + 1])
+            elif note[1] == "b":
+                fix = int(note[0])
+                if len(scale[fix]) == 1:
+                    chordNotes.append(scale[fix] + "b")
+                if len(scale[fix]) != 1 and scale[fix][1] == "#":
+                    chordNotes.append(scale[fix][0])
+                if len(scale[fix]) != 1 and scale[fix][1] == "b":
+                    place = 0
+                    for note in notesFlats:
+                        if scale[fix] != note:
+                            place += 1
+                        else:
+                            chordNotes.append(notesFlats[((place - 1) + len(notesFlats)) % len(notesFlats)])
+        for count, note in enumerate(chordNotes):
+            if note == "Fb":
+                chordNotes[count] = "E"
+            if note == "Cb":
+                chordNotes[count] = "B"
+            if note == "E#":
+                chordNotes[count] = "F"
+            if note == "B#":
+                chordNotes[count] = "C"
+        return chordNotes
+    else:
+        return chord(findkey("C","major"),"triad")
 
 def findnotetab(lowest,desinote):
     lcounter = 0
@@ -173,7 +185,9 @@ instrumentStrings = {
     "dropd":["D","A","D","G","B","E"],
     "mandolin":["G","D","A","E"],
     "viola":["C","G","D","A"],
-    "bass":"E A D G".split()
+    "bass":"E A D G".split(),
+    "ukulele":"G C E A".split(),
+    "banjo":"G D G B D".split()
     }
 
 def findtab(chord,strings):
