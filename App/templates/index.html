@@ -3,12 +3,43 @@
         <title>Hello</title>
     </head>
     <body>
-        <h1>Pick a Chord</h1>
+      <h1>Pick a Chord</h1>
+        {# Figure out which note should be selected #}
+        {% if note_name == "A" %}  {% set note_name_is_a  = "selected" %} {% endif %}
+        {% if note_name == "A#" %} {% set note_name_is_as = "selected" %} {% endif %}
+        {% if note_name == "B" %}  {% set note_name_is_b  = "selected" %} {% endif %}
+        {% if note_name == "C" %}  {% set note_name_is_c  = "selected" %} {% endif %}
+        {% if note_name == "C#" %} {% set note_name_is_cs = "selected" %} {% endif %}
+        {% if note_name == "D" %}  {% set note_name_is_d  = "selected" %} {% endif %}
+        {% if note_name == "D#" %} {% set note_name_is_ds = "selected" %} {% endif %}
+        {% if note_name == "E" %}  {% set note_name_is_e  = "selected" %} {% endif %}
+        {% if note_name == "F" %}  {% set note_name_is_f  = "selected" %} {% endif %}
+        {% if note_name == "F#" %} {% set note_name_is_fs = "selected" %} {% endif %}
+        {% if note_name == "G" %}  {% set note_name_is_g  = "selected" %} {% endif %}
+        {% if note_name == "G#" %} {% set note_name_is_gs = "selected" %} {% endif %}
+        {# TODO Figure out which scale should be selected #}
+        {# TODO Figure out which chord should be selected #}
         <form action="/">
-            Note Name: <input type="text" name="note_name" value="{{note_name}}"><br>
-            Scale Name: <input type="text" name="scale_name" value="{{scale_name}}"><br>
-            Chord Name: <input type="text" name="chord_name" value="{{chord_name}}"><br>
-            <input type="submit" value="Submit">
+          Note Name:
+          <select name="note_name">
+            <option value="A"  {{note_name_is_a}}>A</option>
+            <option value="A#" {{note_name_is_as}}>A#</option>
+            <option value="B"  {{note_name_is_b}}>B</option>
+            <option value="C"  {{note_name_is_c}}>C</option>
+            <option value="C#" {{note_name_is_cs}}>C#</option>
+            <option value="D"  {{note_name_is_d}}>D</option>
+            <option value="D#" {{note_name_is_ds}}>D#</option>
+            <option value="E"  {{note_name_is_e}}>E</option>
+            <option value="F"  {{note_name_is_f}}>F</option>
+            <option value="F#" {{note_name_is_fs}}>F#</option>
+            <option value="G"  {{note_name_is_g}}>G</option>
+            <option value="G#" {{note_name_is_gs}}>G#</option>
+          </select>
+          <br>
+          {# TODO change scale & chord to menus #}
+          Scale Name: <input type="text" name="scale_name" value="{{scale_name}}"><br>
+          Chord Name: <input type="text" name="chord_name" value="{{chord_name}}"><br>
+          <input type="submit" value="Submit">
         </form>
         <h1>Picked a Chord</h1>
         the answer is <b>{{result}}</b>
