@@ -5,40 +5,76 @@
     <body>
       <h1>Pick a Chord</h1>
         {# Figure out which note should be selected #}
+        {% if note_name == "Ab" %}  {% set note_name_is_ab  = "selected" %} {% endif %}
         {% if note_name == "A" %}  {% set note_name_is_a  = "selected" %} {% endif %}
         {% if note_name == "A#" %} {% set note_name_is_as = "selected" %} {% endif %}
+        {% if note_name == "Bb" %}  {% set note_name_is_bb  = "selected" %} {% endif %}
         {% if note_name == "B" %}  {% set note_name_is_b  = "selected" %} {% endif %}
         {% if note_name == "C" %}  {% set note_name_is_c  = "selected" %} {% endif %}
         {% if note_name == "C#" %} {% set note_name_is_cs = "selected" %} {% endif %}
+        {% if note_name == "Db" %}  {% set note_name_is_db  = "selected" %} {% endif %}
         {% if note_name == "D" %}  {% set note_name_is_d  = "selected" %} {% endif %}
         {% if note_name == "D#" %} {% set note_name_is_ds = "selected" %} {% endif %}
+        {% if note_name == "Eb" %}  {% set note_name_is_eb  = "selected" %} {% endif %}
         {% if note_name == "E" %}  {% set note_name_is_e  = "selected" %} {% endif %}
         {% if note_name == "F" %}  {% set note_name_is_f  = "selected" %} {% endif %}
         {% if note_name == "F#" %} {% set note_name_is_fs = "selected" %} {% endif %}
+        {% if note_name == "Gb" %}  {% set note_name_is_gb  = "selected" %} {% endif %}
         {% if note_name == "G" %}  {% set note_name_is_g  = "selected" %} {% endif %}
         {% if note_name == "G#" %} {% set note_name_is_gs = "selected" %} {% endif %}
-        {# TODO Figure out which scale should be selected #}
-        {# TODO Figure out which chord should be selected #}
+        {% if scale_name == "major" %} {% set scale_name_is_major = "selected" %} {% endif %}
+        {% if scale_name == "minor" %} {% set scale_name_is_minor = "selected" %} {% endif %}
+        {% if chord_name == "triad" %} {% set chord_name_is_triad = "selected" %} {% endif %}
+        {% if chord_name == "augmented triad" %} {% set chord_name_is_atriad = "selected" %} {% endif %}
+        {% if chord_name == "diminished triad" %} {% set chord_name_is_dtriad = "selected" %} {% endif %}
+        {% if chord_name == "seventh" %} {% set chord_name_is_seventh = "selected" %} {% endif %}
+        {% if chord_name == "dominant seventh" %} {% set chord_name_is_domseventh = "selected" %} {% endif %}
+        {% if chord_name == "half diminished seventh" %} {% set chord_name_is_hdseventh = "selected" %} {% endif %}
+        {% if chord_name == "fully diminished seventh" %} {% set chord_name_is_fdseventh = "selected" %} {% endif %}
         <form action="/">
           Note Name:
-          <select name="note_name">
+          <select name="note_name">            
+            <option value="Ab" {{note_name_is_ab}}>Ab</option>
             <option value="A"  {{note_name_is_a}}>A</option>
             <option value="A#" {{note_name_is_as}}>A#</option>
+            <option value="Bb" {{note_name_is_bb}}>Bb</option>
             <option value="B"  {{note_name_is_b}}>B</option>
             <option value="C"  {{note_name_is_c}}>C</option>
             <option value="C#" {{note_name_is_cs}}>C#</option>
+            <option value="Db" {{note_name_is_db}}>Db</option>
             <option value="D"  {{note_name_is_d}}>D</option>
             <option value="D#" {{note_name_is_ds}}>D#</option>
+            <option value="Eb" {{note_name_is_eb}}>Eb</option>
             <option value="E"  {{note_name_is_e}}>E</option>
             <option value="F"  {{note_name_is_f}}>F</option>
-            <option value="F#" {{note_name_is_fs}}>F#</option>
+            <option value="F#" {{note_name_is_fs}}>F#</option>            
+            <option value="Gb" {{note_name_is_gb}}>Gb</option>
             <option value="G"  {{note_name_is_g}}>G</option>
             <option value="G#" {{note_name_is_gs}}>G#</option>
           </select>
           <br>
           {# TODO change scale & chord to menus #}
-          Scale Name: <input type="text" name="scale_name" value="{{scale_name}}"><br>
-          Chord Name: <input type="text" name="chord_name" value="{{chord_name}}"><br>
+          Scale Name: 
+          <select name="scale_name">
+            <option value="major"  {{scale_name_is_major}}>major</option>
+            <option value="minor"  {{scale_name_is_minor}}>minor</option>
+            <!-- <input type="text" name="scale_name" value="{{scale_name}}"><br>
+              -->
+          </select>
+          <br>
+          Chord Name: 
+          <select name="chord_name">
+            <option value="triad"  {{chord_name_is_triad}}>triad</option>
+            <option value="diminished triad"  {{chord_name_dtriad}}>diminished triad</option>
+            <option value="augmented triad"  {{chord_name_is_atriad}}>augmented triad</option>
+            <option value="seventh"  {{chord_name_is_seventh}}>seventh</option>
+            <option value="dominant seventh"  {{chord_name_is_domseventh}}>dominant seventh</option>
+            <option value="half diminished seventh"  {{chord_name_is_hdseventh}}>half diminished seventh</option>
+            <option value="fully diminished seventh"  {{chord_name_is_fdseventh}}>fully diminished seventh</option>
+            <!--<input type="text" name="chord_name" value="{{chord_name}}"><br>
+              -->
+          </select>
+          <br>
           <input type="submit" value="Submit">
         </form>
         <h1>Picked a Chord</h1>
